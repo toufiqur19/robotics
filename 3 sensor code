@@ -1,0 +1,37 @@
+void setup() {
+  Serial.begin(9600); // Starts the serial communication
+}
+void pinSetup(int out,int In){
+  pinMode(out, OUTPUT);
+  pinMode(In, INPUT);
+}
+int sonar(int trig,int echo){
+  pinSetup(trig,echo);
+  int trigPin = trig;
+  int echoPin = echo;
+  long duration;
+int distance;
+// Clears the trigPin
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echo, HIGH);
+  // Calculating the distance
+  distance = duration * 0.034 / 2;
+  return(distance);
+}
+void loop() {
+  Serial.print("Left Side: ");
+  int left =sonar(2,4);
+   Serial.println(left);
+  int top= sonar(18,5);
+  Serial.print("Top Side: ");
+  Serial.println(top);
+  int right= sonar(12,13);
+  Serial.print("right Side: ");
+  Serial.println(right);
+}
