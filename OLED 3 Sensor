@@ -45,6 +45,12 @@ int Sonar(int trigPin, int echoPin){
   return distance;
 }
 
+void displayText(int x, int y, int textSize, const char *displayText){
+    display.setTextSize(textSize);
+    display.setTextSize(2);
+}
+
+
 void loop() {
   int front = Sonar(15,2);
   int left = Sonar(4,5);
@@ -52,7 +58,6 @@ void loop() {
   
   display.setCursor(0, 0);
   display.setTextSize(2);
-  
 
 if (front > 100 && left > 100 && right > 100){
         display.print("Front: ");
@@ -115,7 +120,11 @@ else if (front > 100 && left > 100 && right < 100){
         Serial.print("Front/Left (Left) ");
      } 
     }
-
+else if (front < 100 && left < 100 && right < 100){
+        displayText(0, 25, 1, "All Side Blocked Go Back");
+        display.println("All Side Blocked Go Back ");
+        Serial.print("All Side Blocked Go Back ");
+    }
 
   display.display();
   display.clearDisplay();
